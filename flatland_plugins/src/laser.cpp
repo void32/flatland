@@ -59,11 +59,22 @@ void Laser::OnInitialize(const YAML::Node &config) {
   // b->physics_body_->ApplyForce(b2Vec2(50, 0),
   //                              b->physics_body_->GetWorldCenter(), true);
 b->physics_body_->SetLinearVelocity(b2Vec2(5, 0));
-// b->physics_body_->SetAngularVelocity(3);
+
+// b->physics_body_->SetFixedRotation(true)
+printf("*********%d\n", b->physics_body_->IsFixedRotation());
+
+model_->GetBody("base")->physics_body_->Dump();
+model_->GetBody("left_wheel")->physics_body_->Dump();
+model_->GetBody("right_wheel")->physics_body_->Dump();
+model_->joints_[0]->physics_joint_->Dump();
+model_->joints_[1]->physics_joint_->Dump();
 }
 
 void Laser::BeforePhysicsStep(double timestep) {
   ROS_WARN_THROTTLE_NAMED(1, "LaserPlugin", "BeforePhysicsUpdate");
+
+model_->GetBody("base")->physics_body_->SetAngularVelocity(3.1416);
+
   model_->DebugVisualize();
 }
 };

@@ -5,38 +5,85 @@ bodies:  # List of named bodies
   - name: base
     origin: [0, 0, 0] 
     type: dynamic
-    color: [1, 1, 0, 0.25]
-    density: 100
-    restitution: 1
+    color: [1, 1, 0, 1]
     footprints:
-      - type: circle
-        center: [0, 0]
-        radius: 0.65
+      - type: polygon
+        density: 1
+        points: [[0, 1.5], [-.7, .9], [-.7, -.9], [.7, -.9], [.7, .9]]
 
   - name: left_wheel
     origin: [-1, 0, 0] 
     type: dynamic  
-    color: [1, 0, 0, 0.25]
-    density: 0.001
-    restitution: 1
+    color: [1, 0, 0, 1]
     footprints:
       - type: polygon
+        density: 1
         points: [[-.2, 0.75], [-.2, -.75], [.2, -.75], [.2, .75]]
 
   - name: right_wheel
     origin: [1, 0, 0] 
     type: dynamic  
-    color: [0, 1, 0, 0.25]
-    density: 0.001
-    restitution: 1
+    color: [0, 1, 0, 1]
     footprints:
       - type: polygon
+        density: 1
         points: [[-.2, 0.75], [-.2, -.75], [.2, -.75], [.2, .75]]
+
+  - name: tail_1
+    origin: [0, 0, 0]
+    type: dynamic
+    color: [0.8, 0.8, 1, 1]
+    footprints:
+      - type: polygon
+        density: 0.01
+        points: [[-0.1, 0], [-0.1, -1], [0.1, -1], [0.1, 0]]
+        self_collide: true
+
+  - name: tail_2
+    origin: [0, -1, 0]
+    type: dynamic
+    color: [0.8, 0.8, 1, 1]
+    footprints:
+      - type: polygon
+        density: 0.01
+        points: [[-0.1, 0], [-0.1, -1], [0.1, -1], [0.1, 0]]
+        self_collide: true
+
+  - name: tail_3
+    origin: [0, -2, 0]
+    type: dynamic
+    color: [0.8, 0.8, 1, 1]
+    footprints:
+      - type: polygon
+        density: 0.01
+        points: [[-0.1, 0], [-0.1, -1], [0.1, -1], [0.1, 0]]
+        self_collide: true
+
+  - name: tail_4
+    origin: [0, -3, 0]
+    type: dynamic
+    color: [0.8, 0.8, 1, 1]
+    footprints:
+      - type: polygon
+        density: 0.01
+        points: [[-0.1, 0], [-0.1, -1], [0.1, -1], [0.1, 0]]
+        self_collide: true
+
+  - name: tail_5
+    origin: [0, -4, 0]
+    type: dynamic
+    color: [0.8, 0.8, 1, 1]
+    footprints:
+      - type: polygon
+        density: 0.01
+        points: [[-0.1, 0], [-0.1, -1], [0.1, -1], [0.1, 0]]
+        self_collide: true
+        
+
 
 joints:
   - name: left_wheel_weld
     type: weld
-    angle: 0.5
     bodies:
       - name: base
         anchor: [-1, 0]
@@ -49,6 +96,46 @@ joints:
       - name: base
         anchor: [1, 0]
       - name: right_wheel
+        anchor: [0, 0]
+  
+  - name: tail_revolute_1
+    type: revolute
+    bodies:
+      - name: base
+        anchor: [0, 0]
+      - name: tail_1
+        anchor: [0, 0]
+
+  - name: tail_revolute_2
+    type: revolute
+    bodies:
+      - name: tail_1
+        anchor: [0, -1]
+      - name: tail_2
+        anchor: [0, 0]
+
+  - name: tail_revolute_3
+    type: revolute
+    bodies:
+      - name: tail_2
+        anchor: [0, -1]
+      - name: tail_3
+        anchor: [0, 0]
+
+  - name: tail_revolute_4
+    type: revolute
+    bodies:
+      - name: tail_3
+        anchor: [0, -1]
+      - name: tail_4
+        anchor: [0, 0]
+        
+  - name: tail_revolute_5
+    type: revolute
+    bodies:
+      - name: tail_4
+        anchor: [0, -1]
+      - name: tail_5
         anchor: [0, 0]
 
 plugins:
