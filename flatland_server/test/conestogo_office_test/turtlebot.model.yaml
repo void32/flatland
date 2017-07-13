@@ -32,7 +32,7 @@ bodies:  # List of named bodies
   - name: tail_1
     origin: [0, 0, 0]
     type: dynamic
-    color: [0.8, 0.8, 1, 1]
+    color: [0.6, 0.6, 1, 1]
     footprints:
       - type: polygon
         density: 0.01
@@ -42,7 +42,7 @@ bodies:  # List of named bodies
   - name: tail_2
     origin: [0, -1, 0]
     type: dynamic
-    color: [0.8, 0.8, 1, 1]
+    color: [0.6, 0.6, 1, 1]
     footprints:
       - type: polygon
         density: 0.01
@@ -52,7 +52,7 @@ bodies:  # List of named bodies
   - name: tail_3
     origin: [0, -2, 0]
     type: dynamic
-    color: [0.8, 0.8, 1, 1]
+    color: [0.6, 0.6, 1, 1]
     footprints:
       - type: polygon
         density: 0.01
@@ -62,7 +62,7 @@ bodies:  # List of named bodies
   - name: tail_4
     origin: [0, -3, 0]
     type: dynamic
-    color: [0.8, 0.8, 1, 1]
+    color: [0.6, 0.6, 1, 1]
     footprints:
       - type: polygon
         density: 0.01
@@ -72,7 +72,7 @@ bodies:  # List of named bodies
   - name: tail_5
     origin: [0, -4, 0]
     type: dynamic
-    color: [0.8, 0.8, 1, 1]
+    color: [0.6, 0.6, 1, 1]
     footprints:
       - type: polygon
         density: 0.01

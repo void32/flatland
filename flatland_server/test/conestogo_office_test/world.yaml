@@ -2,11 +2,11 @@ properties: {}
 layers:
   - name: "2d"
     map: "map.yaml"
-    color: [0, 1, 0, 0.5]
+    color: [0.0, 1.0, 1.0, 0.5]
   - name: "3d"
     map: "map3d.yaml"
-    color: [1.0, 0.0, 0.0, 0.5]
+    color: [1.0, 1.0, 0.0, 0.5]
 models:  
   - name: turtlebot1 
-    pose: [12, 0, 0]
+    pose: [0, 0, 0]
     model: "turtlebot.model.yaml"

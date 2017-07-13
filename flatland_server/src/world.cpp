@@ -71,7 +71,7 @@ World::~World() {
 
 void World::Update(double timestep) {
   plugin_manager_.BeforePhysicsStep(timestep);
-  physics_world_->Step(timestep, 10, 10);
+  physics_world_->Step(timestep, 200, 200);
   plugin_manager_.AfterPhysicsStep(timestep);
 }
 
