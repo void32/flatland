@@ -54,6 +54,7 @@ namespace flatland_plugins {
 class Laser : public flatland_server::ModelPlugin {
  public:
   void OnInitialize(const YAML::Node &config) override;
+  void BeforePhysicsStep(double timestep) override;
 };
 };
 

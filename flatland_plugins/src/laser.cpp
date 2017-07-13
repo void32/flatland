@@ -45,13 +45,26 @@
  */
 
 #include <flatland_plugins/laser.h>
+#include <flatland_server/model_body.h>
 #include <flatland_server/model_plugin.h>
 #include <pluginlib/class_list_macros.h>
+
+using namespace flatland_server;
 
 namespace flatland_plugins {
 
 void Laser::OnInitialize(const YAML::Node &config) {
   ROS_INFO_NAMED("LaserPlugin", "Laser Initialized");
+  ModelBody *b = model_->GetBody("base");
+  // b->physics_body_->ApplyForce(b2Vec2(50, 0),
+  //                              b->physics_body_->GetWorldCenter(), true);
+b->physics_body_->SetLinearVelocity(b2Vec2(5, 0));
+// b->physics_body_->SetAngularVelocity(3);
+}
+
+void Laser::BeforePhysicsStep(double timestep) {
+  ROS_WARN_THROTTLE_NAMED(1, "LaserPlugin", "BeforePhysicsUpdate");
+  model_->DebugVisualize();
 }
 };
 

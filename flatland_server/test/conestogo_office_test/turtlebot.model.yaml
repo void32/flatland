@@ -1,0 +1,56 @@
+# Turtlebot
+
+
+bodies:  # List of named bodies
+  - name: base
+    origin: [0, 0, 0] 
+    type: dynamic
+    color: [1, 1, 0, 0.25]
+    density: 100
+    restitution: 1
+    footprints:
+      - type: circle
+        center: [0, 0]
+        radius: 0.65
+
+  - name: left_wheel
+    origin: [-1, 0, 0] 
+    type: dynamic  
+    color: [1, 0, 0, 0.25]
+    density: 0.001
+    restitution: 1
+    footprints:
+      - type: polygon
+        points: [[-.2, 0.75], [-.2, -.75], [.2, -.75], [.2, .75]]
+
+  - name: right_wheel
+    origin: [1, 0, 0] 
+    type: dynamic  
+    color: [0, 1, 0, 0.25]
+    density: 0.001
+    restitution: 1
+    footprints:
+      - type: polygon
+        points: [[-.2, 0.75], [-.2, -.75], [.2, -.75], [.2, .75]]
+
+joints:
+  - name: left_wheel_weld
+    type: weld
+    angle: 0.5
+    bodies:
+      - name: base
+        anchor: [-1, 0]
+      - name: left_wheel
+        anchor: [0, 0]
+
+  - name: right_wheel_weld
+    type: weld
+    bodies:
+      - name: base
+        anchor: [1, 0]
+      - name: right_wheel
+        anchor: [0, 0]
+
+plugins:
+  - type: Laser
+    name: laser_test
