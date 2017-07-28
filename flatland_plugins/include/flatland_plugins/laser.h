@@ -64,7 +64,7 @@ namespace flatland_plugins {
  * This class implements the model plugin class and provides laser data
  * for the given configurations
  */
-class Laser : public ModelPlugin, public b2RayCastCallback {
+class Laser : public ModelPlugin, public b2QueryCallback {
  public:
   std::string topic_;             ///< topic name to publish the laser scan
   Body *body_;                    ///<  body the laser frame attaches to
@@ -101,8 +101,7 @@ class Laser : public ModelPlugin, public b2RayCastCallback {
    * @param[in] normal Vector indicating the normal at the point hit
    * @param[in] fraction Fraction of ray length at hit point
    */
-  float ReportFixture(b2Fixture *fixture, const b2Vec2 &point,
-                      const b2Vec2 &normal, float fraction) override;
+  bool ReportFixture(b2Fixture *fixture) override;
 
   /**
    * @brief Initialization for the plugin

@@ -119,9 +119,13 @@ void Laser::OnInitialize(const YAML::Node &config) {
   static_tf.transform.rotation.w = q.w();
 
   ROS_INFO_NAMED("LaserPlugin", "Laser %s initialized", name_.c_str());
+
+  model_->GetBody("base")->physics_body_->SetLinearVelocity(b2Vec2(2, 0));
 }
 
 void Laser::BeforePhysicsStep(const Timekeeper &timekeeper) {
+  // model_->GetBody("base")->physics_body_->SetAngularVelocity(4);
+
   // keep the update rate
   if (!update_timer_.CheckUpdate(timekeeper)) {
     return;
@@ -144,40 +148,39 @@ void Laser::BeforePhysicsStep(const Timekeeper &timekeeper) {
   b2Vec2 laser_point;
   b2Vec2 laser_origin_point(v_world_laser_origin_(0), v_world_laser_origin_(1));
 
-  // loop through the laser points and call the Box2D world raycast
-  for (int i = 0; i < num_laser_points_; ++i) {
-    laser_point.x = m_world_laser_points_(0, i);
-    laser_point.y = m_world_laser_points_(1, i);
+  b2AABB aabb;
 
-    did_hit_ = false;
+  aabb.lowerBound.x = laser_origin_point.x - range_;
+  aabb.lowerBound.y = laser_origin_point.y - range_;
+  aabb.upperBound.x = laser_origin_point.y + range_;
+  aabb.upperBound.y = laser_origin_point.y + range_;
 
-    model_->physics_world_->RayCast(this, laser_origin_point, laser_point);
+  model_->physics_world_->QueryAABB(this, aabb);
 
-    if (!did_hit_) {
-      laser_scan_.ranges[i] = NAN;
-    } else {
-      laser_scan_.ranges[i] = fraction_ * range_;
-    }
-  }
+  // // loop through the laser points and call the Box2D world raycast
+  // for (int i = 0; i < num_laser_points_; ++i) {
+  //   laser_point.x = m_world_laser_points_(0, i);
+  //   laser_point.y = m_world_laser_points_(1, i);
 
-  laser_scan_.header.stamp = ros::Time::now();
-  scan_publisher.publish(laser_scan_);
+  //   did_hit_ = false;
+
+  //   model_->physics_world_->RayCast(this, laser_origin_point, laser_point);
+
+  //   if (!did_hit_) {
+  //     laser_scan_.ranges[i] = NAN;
+  //   } else {
+  //     laser_scan_.ranges[i] = fraction_ * range_;
+  //   }
+  // }
 
   static_tf.header.stamp = ros::Time::now();
   tf_broadcaster.sendTransform(static_tf);
+  laser_scan_.header.stamp = ros::Time::now();
+  scan_publisher.publish(laser_scan_);
 }
 
-float Laser::ReportFixture(b2Fixture *fixture, const b2Vec2 &point,
-                           const b2Vec2 &normal, float fraction) {
-  // only register hit in the specified layers
-  if (!(fixture->GetFilterData().categoryBits & layers_bits_)) {
-    return -1.0f;  // return -1 to ignore this hit
-  }
-
-  did_hit_ = true;
-  fraction_ = fraction;
-
-  return fraction;
+bool Laser::ReportFixture(b2Fixture *fixture) {
+  
 }
 
 void Laser::ParseParameters(const YAML::Node &config) {

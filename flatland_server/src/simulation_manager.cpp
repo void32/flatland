@@ -88,7 +88,8 @@ void SimulationManager::Main() {
   // simulation can be done properly
   ros::WallRate rate(1.0 / timekeeper_.GetStepSize());
   ROS_INFO_NAMED("SimMan", "Simulation loop started");
-  while (ros::ok() && run_simulator_) {
+  // while (ros::ok() && run_simulator_) {
+  for (int i = 0; i < 10; i++) {
     // Step physics by ros cycle time
     world_->Update(timekeeper_);
 
