@@ -76,17 +76,20 @@ Simulator.
 Software Architecture
 ---------------------
 
-
 The following figure shows the top level software architecture. The architecture 
-closely resembles the Rviz top level software architecture.
+closely resembles the Rviz top level software architecture. 
 
 .. image:: _static/top_level.png
     :width: 450px
     :align: center 
     :target: _static/top_level.png
 
+Flatland window is at the same level as 
+
 Build
 -----
 
 The software uses CMakeFiles and a catkin workspace. To build: cd to the root of the 
 catkin workspace and type catkin_make.
+
+.. note:: If the build has problems try doing a catkin_make clean first.

@@ -39,6 +39,7 @@ Class APIs are documented `here <http://flatland-simulator-api.readthedocs.io/>`
    core_functions/ros_services
    core_functions/model_plugins
    core_functions/joystick
+   core_functions/documentation
 
 
 .. toctree::
